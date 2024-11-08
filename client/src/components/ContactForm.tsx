@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { fadeIn } from "@/lib/animations";
 
@@ -60,8 +61,8 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-secondary/20">
-      <div className="container px-4">
+    <section id="contact" className="section-padding bg-secondary/20">
+      <div className="container">
         <motion.div
           className="max-w-2xl mx-auto"
           initial="hidden"
@@ -69,66 +70,82 @@ export default function ContactForm() {
           viewport={{ once: true }}
           variants={fadeIn}
         >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
-            <p className="text-muted-foreground">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
               Ready to transform your business with AI? Contact us today.
             </p>
           </div>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <Card className="border shadow-lg">
+            <CardContent className="p-6 md:p-8">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="form-layout">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base">Name</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Your name"
+                            className="h-12 text-base"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="your@email.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base">Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="your@email.com"
+                            className="h-12 text-base"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Message</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Tell us about your project"
-                        className="min-h-[150px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base">Message</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Tell us about your project"
+                            className="min-h-[150px] text-base resize-y"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <Button type="submit" className="w-full">
-                Send Message
-              </Button>
-            </form>
-          </Form>
+                  <Button 
+                    type="submit"
+                    size="lg"
+                    className="w-full text-base h-12"
+                  >
+                    Send Message
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>
