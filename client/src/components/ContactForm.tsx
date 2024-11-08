@@ -77,23 +77,23 @@ export default function ContactForm() {
             </p>
           </div>
 
-          <Card className="border shadow-lg">
+          <Card className="border shadow-lg card-elite">
             <CardContent className="p-6 md:p-8">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="form-layout">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">Name</FormLabel>
+                      <FormItem className="form-group">
                         <FormControl>
                           <Input 
-                            placeholder="Your name"
-                            className="h-12 text-base"
+                            placeholder=" "
+                            className="form-input h-12 text-base px-4"
                             {...field}
                           />
                         </FormControl>
+                        <FormLabel className="floating-label">Name</FormLabel>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -103,15 +103,15 @@ export default function ContactForm() {
                     control={form.control}
                     name="email"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">Email</FormLabel>
+                      <FormItem className="form-group">
                         <FormControl>
                           <Input
-                            placeholder="your@email.com"
-                            className="h-12 text-base"
+                            placeholder=" "
+                            className="form-input h-12 text-base px-4"
                             {...field}
                           />
                         </FormControl>
+                        <FormLabel className="floating-label">Email</FormLabel>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -121,15 +121,15 @@ export default function ContactForm() {
                     control={form.control}
                     name="message"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">Message</FormLabel>
+                      <FormItem className="form-group">
                         <FormControl>
                           <Textarea
-                            placeholder="Tell us about your project"
-                            className="min-h-[150px] text-base resize-y"
+                            placeholder=" "
+                            className="form-input min-h-[150px] text-base resize-y px-4 py-3"
                             {...field}
                           />
                         </FormControl>
+                        <FormLabel className="floating-label">Message</FormLabel>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -138,7 +138,7 @@ export default function ContactForm() {
                   <Button 
                     type="submit"
                     size="lg"
-                    className="w-full text-base h-12"
+                    className="w-full text-base h-12 button-gradient"
                   >
                     Send Message
                   </Button>

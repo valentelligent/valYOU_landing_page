@@ -17,7 +17,7 @@ export default function Hero() {
             variants={slideUp}
           >
             Empowering{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+            <span className="gradient-text">
               val<span className="text-primary">YOU</span>
             </span>{" "}
             with AI
@@ -33,10 +33,10 @@ export default function Hero() {
             className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start"
             variants={slideUp}
           >
-            <Button size="lg" className="text-lg">
+            <Button size="lg" className="button-gradient text-lg">
               Get Started
             </Button>
-            <Button size="lg" variant="outline" className="text-lg">
+            <Button size="lg" variant="outline" className="text-lg gradient-border">
               Learn More
             </Button>
           </motion.div>

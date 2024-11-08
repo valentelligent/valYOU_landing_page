@@ -67,10 +67,28 @@
   
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600;
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+
+  .gradient-border {
+    position: relative;
+    border: double 1px transparent;
+    border-radius: var(--radius);
+    background-image: linear-gradient(var(--card), var(--card)), 
+                      linear-gradient(to right, hsl(var(--primary)), hsl(var(--ring)));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
   }
   
   .card-hover {
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
 
@@ -110,6 +128,45 @@
   .section-bg::before {
     @apply content-[''] absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none;
   }
+
+  /* Enhanced Form Styles */
+  .form-group {
+    @apply relative;
+  }
+
+  .floating-label {
+    @apply absolute left-3 transition-all duration-200 pointer-events-none text-muted-foreground;
+    transform-origin: 0 0;
+  }
+
+  .form-input:focus ~ .floating-label,
+  .form-input:not(:placeholder-shown) ~ .floating-label {
+    @apply text-primary text-xs -translate-y-6;
+  }
+
+  /* Enhanced Button Styles */
+  .button-gradient {
+    @apply relative overflow-hidden;
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--ring)) 100%);
+    background-size: 200% 100%;
+    transition: all 0.3s ease;
+  }
+
+  .button-gradient:hover {
+    background-position: 100% 0;
+    transform: translateY(-2px);
+  }
+
+  /* Card Enhancement */
+  .card-elite {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300;
+    background: linear-gradient(145deg, var(--card) 0%, var(--muted) 100%);
+  }
+
+  .card-elite:hover {
+    @apply shadow-lg;
+    transform: translateY(-4px) scale(1.01);
+  }
 }
 
 .reveal {
@@ -138,10 +195,10 @@
 
 /* Form Elements Enhancement */
 input, textarea, select {
-  @apply transition-shadow duration-200 hover:shadow-md focus:shadow-lg;
+  @apply transition-all duration-200 hover:shadow-md focus:shadow-lg;
 }
 
 /* Button Enhancement */
 button {
-  @apply active:scale-95 transition-transform;
+  @apply active:scale-95 transition-all;
 }
