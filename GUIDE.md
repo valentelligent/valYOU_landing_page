@@ -1,266 +1,282 @@
 # Valentelligent AI Landing Page - User Guide
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Getting Started](#getting-started)
+3. [Layout Structure](#layout-structure)
+4. [Component Customization](#component-customization)
+5. [Performance Optimization](#performance-optimization)
+6. [Accessibility Guidelines](#accessibility-guidelines)
+7. [Troubleshooting](#troubleshooting)
+
 ## Introduction
 
 ### What is this landing page?
 The Valentelligent AI landing page is a modern website that showcases AI-related services and products. It features beautiful animations, interactive sections, and a clean, professional design.
 
-### What can you use it for?
-- Promote your AI business or services
-- Display your company's AI solutions
-- Collect leads through the contact form
-- Showcase testimonials and case studies
-- Demonstrate AI features through the interactive demo
-- Share blog posts and resources
-- Calculate service costs for potential clients
-
 ### Basic Requirements
 - A computer with internet access
-- A modern web browser (like Chrome, Firefox, or Safari)
-- Basic familiarity with using websites and editing text files
+- A modern web browser (Chrome, Firefox, or Safari)
+- Basic familiarity with web development concepts
 
-## Getting Started
+## Layout Structure
 
-### Download and Setup
-
-1. Get the Files
-   - Visit the project's download page
-   - Click the "Download" or "Clone" button
-   - Save the files to your computer
-
-2. Install Required Software
-   - Download and install Node.js from nodejs.org
-   - Choose the "LTS" (Long Term Support) version
-   - Follow the installation wizard's instructions
-
-3. Open the Project
-   - Open your computer's terminal/command prompt
-   - Navigate to the project folder
-   - Type `npm install` and press Enter
-   - Wait for the installation to complete
-
-4. Start the Website
-   - In the terminal, type `npm run dev`
-   - Wait for the message "serving on port 5000"
-   - Open your web browser
-   - Visit `http://localhost:5000`
-
-### Basic Folder Structure (The Important Parts)
-
-```
-client/
-  ├── src/
-  │   ├── components/   (Website sections)
-  │   └── index.css     (Colors and styles)
+```mermaid
+graph TB
+    subgraph Layout
+        A[Header] --> B[Navigation]
+        C[Main Content] --> D[Hero]
+        C --> E[Services]
+        C --> F[Features]
+        C --> G[Calculator]
+        C --> H[Demo]
+        C --> I[Blog]
+        C --> J[Contact]
+    end
 ```
 
-## Customization Guide
+### Responsive Grid System
+```
+Desktop Layout (1200px+)
+┌────────────────────────┐
+│        Header          │
+├────────────────────────┤
+│         Hero           │
+├────┬────────────┬─────┤
+│Feat│  Content   │ Side│
+│ure │            │     │
+├────┴────────────┴─────┤
+│        Footer         │
+└────────────────────────┘
 
-### Changing Text and Content
+Mobile Layout (<768px)
+┌──────────────┐
+│    Header    │
+├──────────────┤
+│     Hero     │
+├──────────────┤
+│   Features   │
+├──────────────┤
+│   Content    │
+├──────────────┤
+│    Footer    │
+└──────────────┘
+```
 
-1. Open the component files in the `client/src/components` folder
-2. Look for text between quotes (" ")
-3. Change the text to your desired content
-4. Save the file
+## Step-by-Step Tutorials
 
-Example:
+### 1. Adding a New Section
+
 ```jsx
-// Before
-<h1>Welcome to Valentelligent AI</h1>
+// 1. Create a new component file
+// client/src/components/NewSection.tsx
 
-// After
-<h1>Welcome to Your Company Name</h1>
-```
+import { motion } from "framer-motion";
+import { fadeIn } from "@/lib/animations";
 
-### Modifying Colors and Styles
+export default function NewSection() {
+  return (
+    <section className="py-20">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeIn}
+      >
+        {/* Your content here */}
+      </motion.div>
+    </section>
+  );
+}
 
-1. Open `client/src/index.css`
-2. Find the `:root` section at the top
-3. Change color values to customize the look
+// 2. Add to Home.tsx
+import NewSection from "@/components/NewSection";
 
-Example colors:
-```css
-:root {
-  --primary: 262.1 83.3% 57.8%;    /* Main color */
-  --secondary: 240 4% 96%;         /* Background color */
+export default function Home() {
+  return (
+    <div>
+      <Header />
+      <NewSection />
+      {/* Other sections */}
+    </div>
+  );
 }
 ```
 
-### Adding/Removing Sections
+### 2. Customizing Components
 
-1. Open `client/src/pages/Home.tsx`
-2. Add or remove components from the list
-3. Components are like building blocks - add or remove them as needed
-
-Example:
+#### Button Customization
 ```jsx
-// Remove a section by deleting its line
-<Hero />
-<Services />
-// <Features />  <- Remove this line to hide the Features section
-<AIDemo />
+// Basic Button
+<Button>Click Me</Button>
+
+// Gradient Button
+<Button className="button-gradient">
+  Gradient Button
+</Button>
+
+// Outlined Button
+<Button variant="outline" className="gradient-border">
+  Outlined Button
+</Button>
 ```
 
-### Changing Images
-
-1. Add your new images to the `public` folder
-2. Open the component file where you want to change the image
-3. Update the image path to point to your new image
-
-Example:
+#### Card Customization
 ```jsx
-// Before
-<img src="/features/analytics.svg" />
+// Basic Card
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+  </CardHeader>
+  <CardContent>
+    Content here
+  </CardContent>
+</Card>
 
-// After
-<img src="/your-new-image.jpg" />
+// Enhanced Card
+<Card className="card-elite hover:shadow-xl">
+  <CardHeader className="space-y-4">
+    <CardTitle className="gradient-text">
+      Enhanced Title
+    </CardTitle>
+  </CardHeader>
+</Card>
 ```
 
-### Modifying the Contact Form
+## Performance Optimization
 
-1. Open `client/src/components/ContactForm.tsx`
-2. Change form fields or messages
-3. Update validation rules if needed
-
-## Common Tasks
-
-### Updating the Hero Section
-
-1. Open `client/src/components/Hero.tsx`
-2. Change the main heading, subtext, and button labels
-3. Modify the background colors or layout
-
-Example changes:
+### 1. Image Optimization
 ```jsx
-// Change the main heading
-<h1>Your New Headline Here</h1>
+// Bad Example
+<img src="large-image.jpg" />
 
-// Update button text
-<Button>Start Now</Button>
+// Good Example
+<picture>
+  <source
+    srcSet="image-small.webp"
+    media="(max-width: 768px)"
+    type="image/webp"
+  />
+  <source
+    srcSet="image-large.webp"
+    type="image/webp"
+  />
+  <img
+    src="image-fallback.jpg"
+    alt="Description"
+    loading="lazy"
+  />
+</picture>
 ```
 
-### Modifying Service Cards
-
-1. Open `client/src/components/Services.tsx`
-2. Find the `services` array
-3. Add, remove, or modify service items
-
-Example:
+### 2. Component Optimization
 ```jsx
-const services = [
-  {
-    title: "Your New Service",
-    description: "Description of your service",
-    icon: Star
-  }
-];
+// Use React.memo for expensive components
+const ExpensiveComponent = React.memo(({ data }) => {
+  return <div>{/* Complex rendering */}</div>;
+});
+
+// Use useMemo for expensive calculations
+const memoizedValue = useMemo(() => {
+  return expensiveOperation(dependencies);
+}, [dependencies]);
 ```
 
-### Changing Testimonials
+## Accessibility Guidelines
 
-1. Open `client/src/components/Testimonials.tsx`
-2. Locate the testimonials array
-3. Update with your own customer testimonials
-
-Example:
+### 1. Semantic HTML
 ```jsx
-const testimonials = [
-  {
-    name: "Customer Name",
-    role: "Company Position",
-    content: "Their testimonial message"
-  }
-];
+// Bad
+<div onClick={handleClick}>Click me</div>
+
+// Good
+<button
+  onClick={handleClick}
+  aria-label="Submit form"
+>
+  Click me
+</button>
 ```
 
-### Updating the Blog Section
-
-1. Open `client/src/components/Blog.tsx`
-2. Find the `blogPosts` array
-3. Add or update blog post entries
-
-Example:
+### 2. ARIA Attributes
 ```jsx
-const blogPosts = [
-  {
-    title: "Your Blog Post Title",
-    description: "Short description of the post",
-    date: "November 8, 2024"
-  }
-];
+// Navigation
+<nav aria-label="Main navigation">
+  <ul role="menubar">
+    <li role="menuitem">
+      <a href="#services">Services</a>
+    </li>
+  </ul>
+</nav>
+
+// Form Labels
+<form>
+  <label htmlFor="name">Name</label>
+  <input
+    id="name"
+    aria-required="true"
+    aria-invalid={errors.name ? "true" : "false"}
+  />
+</form>
 ```
 
-### Modifying the Calculator
+### 3. Focus Management
+```css
+/* Visible focus indicators */
+:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
 
-1. Open `client/src/components/ServiceCalculator.tsx`
-2. Update pricing and options
-3. Modify calculation logic if needed
-
-Example:
-```jsx
-const basePrice = {
-  basic: 500,    // Change prices
-  premium: 1000,
-  enterprise: 2000
-};
+/* Focus visible only when using keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
 ```
 
 ## Troubleshooting
 
-### Common Issues and Solutions
+### Common Issues
 
-1. Website Not Loading
-   - Make sure you ran `npm install`
-   - Check if the terminal shows any errors
-   - Try restarting with `npm run dev`
+1. **Styles Not Applying**
+   - Clear browser cache
+   - Rebuild Tailwind: `npm run build:css`
+   - Check class name conflicts
 
-2. Changes Not Showing Up
-   - Save all modified files
-   - Refresh your browser
-   - Clear browser cache if needed
+2. **Animations Not Working**
+   - Verify Framer Motion import
+   - Check variant names
+   - Ensure proper component mounting
 
-3. Styling Issues
-   - Check for typos in class names
-   - Verify color values are correct
-   - Make sure all style changes are saved
+3. **Performance Issues**
+   - Implement code splitting
+   - Optimize images
+   - Use React.memo and useMemo
+   - Enable tree shaking
 
-4. Contact Form Not Working
-   - Verify your email settings
-   - Check browser console for errors
-   - Test with different browsers
+4. **Mobile Responsiveness**
+   - Test on multiple devices
+   - Use browser dev tools
+   - Check viewport settings
 
-### Getting Help
+### Debug Tools
 
-1. Documentation Resources
-   - Read the README.md file
-   - Check the official documentation
-   - Look for examples in the code
+1. React Developer Tools
+```javascript
+// Enable React Dev Tools
+if (process.env.NODE_ENV === 'development') {
+  const ReactDOM = require('react-dom');
+  ReactDOM.render(<App />, document.getElementById('root'));
+}
+```
 
-2. Community Support
-   - Join related forums
-   - Ask questions on Stack Overflow
-   - Reach out to the developer community
+2. Performance Monitoring
+```javascript
+// Add performance marks
+performance.mark('componentStart');
+// Your component code
+performance.mark('componentEnd');
+performance.measure('componentRender', 'componentStart', 'componentEnd');
+```
 
-3. Direct Support
-   - Contact your website administrator
-   - Submit support tickets
-   - Email the development team
-
-Remember: Always make a backup before making significant changes!
-
-## Tips for Success
-
-1. Start Small
-   - Make one change at a time
-   - Test each change before moving on
-   - Keep track of what you modified
-
-2. Stay Organized
-   - Name files clearly
-   - Comment your changes
-   - Keep a backup of original files
-
-3. Test Thoroughly
-   - Check on different devices
-   - Test all interactive features
-   - Verify contact form submissions
+Remember: Always test thoroughly on multiple devices and browsers before deploying changes!
