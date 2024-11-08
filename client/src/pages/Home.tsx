@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import Features from "@/components/Features";
 import AIDemo from "@/components/AIDemo";
 import Testimonials from "@/components/Testimonials";
+import Blog from "@/components/Blog";
 import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         <Services />
         <Features />
         <AIDemo />
+        <Blog />
         <Testimonials />
         <ContactForm />
       </main>
