@@ -51,6 +51,14 @@ export default function Header() {
             <NavigationMenuItem>
               <Button
                 variant="ghost"
+                onClick={() => scrollToSection("calculator")}
+              >
+                Calculator
+              </Button>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Button
+                variant="ghost"
                 onClick={() => scrollToSection("ai-demo")}
               >
                 AI Demo

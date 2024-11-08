@@ -7,6 +7,7 @@ import AIDemo from "@/components/AIDemo";
 import Testimonials from "@/components/Testimonials";
 import Blog from "@/components/Blog";
 import ContactForm from "@/components/ContactForm";
+import ServiceCalculator from "@/components/ServiceCalculator";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <Services />
         <Features />
+        <ServiceCalculator />
         <CaseStudies />
         <AIDemo />
         <Blog />
