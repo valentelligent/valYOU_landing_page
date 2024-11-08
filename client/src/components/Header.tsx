@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,6 +15,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -32,31 +33,35 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/">
-          <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 cursor-pointer">
             Valentelligent AI
-          </div>
+          </span>
         </Link>
 
         <NavigationMenu>
-          <NavigationMenuList>
+          <NavigationMenuList className="hidden md:flex gap-2">
             <NavigationMenuItem>
-              <Link href="#services">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Services
-                </NavigationMenuLink>
-              </Link>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection("services")}
+              >
+                Services
+              </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="#testimonials">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Testimonials
-                </NavigationMenuLink>
-              </Link>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection("testimonials")}
+              >
+                Testimonials
+              </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="#contact">
-                <Button variant="default">Contact Us</Button>
-              </Link>
+              <Button
+                onClick={() => scrollToSection("contact")}
+              >
+                Contact Us
+              </Button>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

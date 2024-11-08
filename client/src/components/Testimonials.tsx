@@ -1,14 +1,10 @@
 import { motion } from "framer-motion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import useEmblaCarousel from 'embla-carousel-react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { fadeIn } from "@/lib/animations";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -32,6 +28,11 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi && emblaApi.scrollNext();
+
   return (
     <section id="testimonials" className="py-20">
       <div className="container px-4">
@@ -53,17 +54,12 @@ export default function Testimonials() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
+          className="relative"
         >
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full max-w-5xl mx-auto"
-          >
-            <CarouselContent>
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
               {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div key={index} className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-4">
                   <Card className="h-full">
                     <CardContent className="p-6">
                       <div className="flex items-center gap-4 mb-4">
@@ -80,12 +76,26 @@ export default function Testimonials() {
                       <p className="text-muted-foreground">{testimonial.content}</p>
                     </CardContent>
                   </Card>
-                </CarouselItem>
+                </div>
               ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10"
+            onClick={scrollPrev}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10"
+            onClick={scrollNext}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </motion.div>
       </div>
     </section>
