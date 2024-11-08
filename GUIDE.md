@@ -1,28 +1,31 @@
-# Welcome to Your Valentelligent AI Journey! 🚀
+# Valentelligent AI Developer Guide 🚀
 
-> 📚 **Note:** New to the project? Start with [README.md](README.md) first!
+> 📚 **Start Here:** New to the project? Make sure to read [README.md](README.md) first!
 
-## Getting Started with Development
+## Table of Contents 📑
 
-If you've completed the setup in [README.md](README.md), you're ready to dive deeper!
+1. [Project Structure](#project-structure)
+2. [Component Guide](#component-guide)
+3. [Styling Guide](#styling-guide)
+4. [Development Patterns](#development-patterns)
+5. [Troubleshooting](#troubleshooting)
+6. [Best Practices](#best-practices)
 
-### Project Structure Explained 🏗️
-
-Think of our project like building a house:
+## Project Structure 🏗️
 
 ```
 📁 Your Workspace
-├── 📁 client/               # Frontend (The visible parts)
-│   ├── 📁 src/             # Source code (Building materials)
-│   │   ├── 📁 components/  # Reusable parts (Like LEGO blocks)
-│   │   ├── 📁 styles/      # Design rules (Paint and decorations)
-│   │   └── 📄 main.tsx     # Entry point (Front door)
-└── 📁 server/              # Backend (The engine room)
+├── 📁 client/               # Frontend
+│   ├── 📁 src/             # Source code
+│   │   ├── 📁 components/  # UI components
+│   │   ├── 📁 lib/        # Utilities
+│   │   └── 📁 pages/      # Page layouts
+└── 📁 server/              # Backend
 ```
 
-### Component Gallery 🎨
+## Component Guide 🎨
 
-Here's what we have in our toolbox:
+### Core Components
 
 1. **Header & Navigation**
    ```jsx
@@ -31,32 +34,25 @@ Here's what we have in our toolbox:
    </Header>
    ```
 
-2. **Hero Section**
+2. **AI Demo Interface**
    ```jsx
-   <Hero>
-     <motion.h1 className="gradient-text">
-       Welcome to the Future
-     </motion.h1>
-   </Hero>
+   <AIDemo>
+     <ChatInterface prompts={demoPrompts} />
+   </AIDemo>
    ```
 
-3. **Feature Cards**
+3. **Service Calculator**
    ```jsx
-   <Card className="feature-card">
-     <CardHeader>
-       <CardTitle>AI Solutions</CardTitle>
-     </CardHeader>
-   </Card>
+   <ServiceCalculator>
+     <PricingForm onSubmit={calculatePrice} />
+   </ServiceCalculator>
    ```
 
-### Styling Like a Pro 🎯
+### Styling System
 
-1. **Using Gradients**
-   ```css
-   .gradient-text {
-     @apply bg-clip-text text-transparent 
-     bg-gradient-to-r from-purple-600 to-blue-600;
-   }
+1. **Tailwind Utilities**
+   ```jsx
+   className="gradient-text hover:scale-105 transition-all"
    ```
 
 2. **Animations**
@@ -64,69 +60,57 @@ Here's what we have in our toolbox:
    <motion.div
      initial={{ opacity: 0 }}
      animate={{ opacity: 1 }}
-     className="fade-in"
    >
    ```
 
-### Common Patterns 🔄
+## Development Patterns 🔄
 
-1. **Layout Structure**
-   ```jsx
-   <main className="min-h-screen">
-     <Header />
-     <Hero />
-     <Features />
-     <Footer />
-   </main>
-   ```
+### State Management
 
-2. **Responsive Design**
-   ```jsx
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-     {/* Content */}
-   </div>
-   ```
-
-### Working with Images 🖼️
-
-> 🔗 For detailed image guidelines, check out [IMAGES_GUIDE.md](client/src/components/IMAGES_GUIDE.md)
-
-Quick image tips:
 ```jsx
-// Basic responsive image
-<Image
-  src="/hero.webp"
-  alt="AI Technology"
-  className="w-full h-auto"
-  loading="lazy"
-/>
+// Local State
+const [isOpen, setIsOpen] = useState(false);
+
+// Forms
+const form = useForm({
+  defaultValues: {
+    service: "ml",
+    volume: 100
+  }
+});
 ```
 
-### Troubleshooting Guide 🔧
+### Performance Optimization
 
-1. **Styles Not Working?**
-   - Check class names
-   - Verify tailwind.config.js
-   - Rebuild CSS: `npm run build:css`
-
-2. **Components Not Rendering?**
-   - Check import statements
-   - Verify component names
-   - Look for console errors
-
-3. **Animations Not Smooth?**
-   - Reduce animation complexity
-   - Use `transform` instead of position
-   - Enable hardware acceleration
-
-### Best Practices 📝
-
-1. **Component Organization**
+1. **Code Splitting**
    ```jsx
-   // Good
-   export default function FeatureCard({ title, description }) {
+   const HeavyComponent = React.lazy(() => import('./HeavyComponent'));
+   ```
+
+2. **Image Optimization**
+   > 🔗 See detailed guide in [IMAGES_GUIDE.md](client/src/components/IMAGES_GUIDE.md)
+
+## Troubleshooting 🔧
+
+### Common Issues
+
+1. **Styles Not Working**
+   - Check Tailwind classes
+   - Verify component imports
+   - Check for CSS conflicts
+
+2. **Performance Issues**
+   - Implement lazy loading
+   - Optimize images
+   - Use production builds
+
+## Best Practices 📝
+
+1. **Component Structure**
+   ```jsx
+   export default function Feature({ title, description }) {
      return (
-       <Card className="feature-card">
+       <Card>
          <CardTitle>{title}</CardTitle>
          <CardContent>{description}</CardContent>
        </Card>
@@ -134,30 +118,26 @@ Quick image tips:
    }
    ```
 
-2. **State Management**
+2. **Form Handling**
    ```jsx
-   // Keep it simple
-   const [isOpen, setIsOpen] = useState(false);
+   const form = useForm({
+     resolver: zodResolver(schema)
+   });
    ```
 
-3. **Performance**
+3. **Animation Guidelines**
    ```jsx
-   // Use lazy loading
-   const HeavyComponent = React.lazy(() => import('./HeavyComponent'));
+   <motion.div
+     variants={fadeIn}
+     initial="hidden"
+     animate="visible"
+   >
    ```
 
-### Ready for Images? 🎨
+## Next Steps 🎯
 
-Now that you understand the basics, head over to [IMAGES_GUIDE.md](client/src/components/IMAGES_GUIDE.md) to learn about:
-- Image optimization
-- Responsive techniques
-- SVG implementation
-- Performance best practices
-
-### Need Help? 🆘
-
-- Check the console for errors
+- Check [IMAGES_GUIDE.md](client/src/components/IMAGES_GUIDE.md) for image optimization
 - Review component documentation
 - Join our community Discord
 
-Remember: Practice makes perfect! Keep experimenting and building! 💪
+Remember: Code quality and performance are our top priorities! 💪

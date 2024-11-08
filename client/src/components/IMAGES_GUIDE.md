@@ -1,232 +1,141 @@
-# Mastering Images in Valentelligent AI 🖼️
+# Valentelligent AI Image Guidelines 🖼️
 
-> 📚 **Prerequisites:** Make sure you've read [README.md](../../../README.md) and [GUIDE.md](../../../GUIDE.md) first!
+> 📚 **Prerequisites:** Read [README.md](../../../README.md) and [GUIDE.md](../../../GUIDE.md) first!
 
-## Your Image Journey 🚀
+## Overview 🎯
+
+This guide covers image optimization and implementation for the Valentelligent AI landing page.
+
+## Quick Reference 📋
 
 ```mermaid
 graph TD
-    A[Basic Setup] -->|Complete| B[Component Basics]
-    B -->|From GUIDE.md| C[Image Mastery]
-    C -->|You Are Here| D[Advanced Techniques]
+    A[Choose Image Type] -->|Based on Use| B[Optimize]
+    B -->|Format & Size| C[Implement]
+    C -->|Component| D[Test]
     
-    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-## Image Types & Usage 📸
+## Image Requirements 📏
 
-### 1. Hero Images
+### Hero Section
+- Desktop: 1920x1080px
+- Tablet: 1024x768px
+- Mobile: 640x480px
+- Format: WebP
+- Max size: 200KB
+
+### Feature Cards
+- Size: 800x600px
+- Format: WebP/SVG
+- Max size: 100KB
+
+### Blog Posts
+- Thumbnail: 400x300px
+- Header: 1200x630px
+- Format: WebP
+- Max size: 150KB
+
+## Implementation Guide 💻
+
+### 1. Responsive Images
+
 ```jsx
-// From our Hero component in GUIDE.md
-<div className="hero-image-container">
-  <Image
-    src="/hero-image.webp"
-    alt="AI Technology Visualization"
-    priority  // Load first!
-    className="hero-image"
-  />
-</div>
-
-// Required sizes
-Desktop: 1920x1080px
-Tablet:  1024x768px
-Mobile:  640x480px
-```
-
-### 2. Feature Cards
-```jsx
-// Matching our Feature component style
-<Card className="feature-card">
-  <Image
-    src="/feature-image.webp"
-    alt="Feature Description"
-    className="feature-image"
-    loading="lazy"  // Performance optimization
-  />
-</Card>
-
-// Required sizes
-800x600px (will scale automatically)
-```
-
-### 3. Blog Post Images
-```jsx
-// Coordinates with Blog component
-<article className="blog-post">
-  <Image
-    src="/blog-image.webp"
-    alt="Blog Post Title"
-    className="blog-image"
-    loading="lazy"
-  />
-</article>
-
-// Required sizes
-Thumbnail: 400x300px
-Header: 1200x630px
-```
-
-## Implementation Examples 💡
-
-### 1. Responsive Hero Image
-```jsx
-// Combines concepts from GUIDE.md
 <picture>
-  {/* Mobile first */}
   <source
-    media="(max-width: 640px)"
-    srcSet="/hero-mobile.webp"
-    type="image/webp"
+    media="(min-width: 1024px)"
+    srcSet="/images/hero-desktop.webp"
   />
-  {/* Tablet */}
   <source
-    media="(max-width: 1024px)"
-    srcSet="/hero-tablet.webp"
-    type="image/webp"
+    media="(min-width: 640px)"
+    srcSet="/images/hero-tablet.webp"
   />
-  {/* Desktop */}
-  <source
-    srcSet="/hero-desktop.webp"
-    type="image/webp"
-  />
-  {/* Fallback */}
   <img
-    src="/hero-fallback.jpg"
+    src="/images/hero-mobile.webp"
     alt="AI Technology"
-    className="hero-image"
+    className="w-full h-auto"
   />
 </picture>
 ```
 
-### 2. Animated Feature Icons
+### 2. Lazy Loading
+
 ```jsx
-// Using Framer Motion from GUIDE.md
-<motion.div
-  initial={{ opacity: 0, scale: 0.5 }}
-  animate={{ opacity: 1, scale: 1 }}
-  className="feature-icon"
->
-  <svg className="w-12 h-12 text-primary">
-    {/* Icon paths */}
-  </svg>
-</motion.div>
+<Image
+  src="/images/feature.webp"
+  alt="Feature"
+  loading="lazy"
+  className="feature-image"
+/>
 ```
 
-### 3. Lazy-Loaded Gallery
+### 3. SVG Implementation
+
 ```jsx
-// Performance optimization
-const Gallery = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  
-  return (
-    <div className="image-gallery">
-      {images.map((image) => (
-        <Image
-          key={image.id}
-          src={image.src}
-          alt={image.alt}
-          loading="lazy"
-          className="gallery-image"
-        />
-      ))}
-    </div>
-  );
-};
+<svg className="icon-primary">
+  <use href="/icons/sprite.svg#feature-icon" />
+</svg>
 ```
 
-## Advanced Optimization 🔧
+## Optimization Checklist ✅
 
-### 1. Format Selection
-```javascript
-const imageFormats = {
-  photos: ['webp', 'jpg'],  // Regular images
-  icons: ['svg'],           // UI elements
-  animations: ['gif', 'webp'] // Animated content
-};
-```
-
-### 2. Size Optimization
-```bash
-# Recommended tools
-┌─────────────┬────────────────┐
-│ Image Type  │ Max Size (KB)  │
-├─────────────┼────────────────┤
-│ Hero        │      200       │
-│ Feature     │      100       │
-│ Thumbnail   │       50       │
-│ Icon        │       10       │
-└─────────────┴────────────────┘
-```
-
-### 3. Loading Strategies
-```jsx
-// Priority loading for above-fold
-<Image priority src="/hero.webp" />
-
-// Lazy loading for below-fold
-<Image loading="lazy" src="/content.webp" />
-
-// Eager loading for critical UI
-<Image loading="eager" src="/logo.svg" />
-```
-
-## Performance Tips 🚀
-
-1. **Image CDN Usage**
-   ```jsx
-   // Use image CDN for dynamic resizing
-   <Image
-     src={`https://cdn.example.com/image.jpg?w=${width}&q=${quality}`}
-     alt="Dynamic Image"
-   />
-   ```
-
-2. **Art Direction**
-   ```jsx
-   // Different images for different screens
-   <picture>
-     <source 
-       media="(min-width: 1024px)"
-       srcSet="/desktop-optimized.webp"
-     />
-     <img src="/mobile-optimized.webp" alt="Art Direction" />
-   </picture>
-   ```
+- [ ] Compress images
+- [ ] Convert to WebP
+- [ ] Implement responsive sources
+- [ ] Add lazy loading
+- [ ] Test performance
 
 ## Directory Structure 📁
 
-```bash
+```
 public/
 ├── images/
-│   ├── hero/          # Hero section (high priority)
-│   ├── features/      # Feature illustrations
-│   ├── blog/          # Blog post images
-│   └── gallery/       # Image gallery
+│   ├── hero/
+│   │   ├── desktop/
+│   │   ├── tablet/
+│   │   └── mobile/
+│   ├── features/
+│   ├── blog/
+│   └── testimonials/
 └── icons/
-    └── sprite.svg     # SVG sprite sheet
+    └── sprite.svg
 ```
 
-## Success Checklist ✅
+## Best Practices 🌟
 
-Before deployment:
-- [ ] All images optimized
-- [ ] Responsive images implemented
-- [ ] Lazy loading configured
-- [ ] Alt text added
-- [ ] Performance tested
+1. **Format Selection**
+   - Photos: WebP
+   - Icons: SVG
+   - Animations: WebP
 
-## Next Steps 🎯
+2. **Performance Tips**
+   - Use responsive images
+   - Implement lazy loading
+   - Optimize file size
+   - Use CDN when possible
 
-1. **Review Performance**
-   - Use browser dev tools
-   - Check loading times
-   - Verify image sizes
+3. **Accessibility**
+   - Meaningful alt text
+   - Proper ARIA labels
+   - Contrast ratios
 
-2. **Optimize Further**
-   - Implement caching
-   - Use CDN
-   - Monitor metrics
+## Tools & Resources 🛠️
 
-Remember: Great images make great websites! 🌟
+1. **Image Optimization**
+   - [Squoosh](https://squoosh.app)
+   - [TinyPNG](https://tinypng.com)
+   - [SVGOMG](https://jakearchibald.github.io/svgomg)
 
-Need more help? Return to [GUIDE.md](../../../GUIDE.md) for component integration tips!
+2. **Performance Testing**
+   - Lighthouse
+   - WebPageTest
+   - Browser DevTools
+
+## Next Steps 🚀
+
+1. Return to [GUIDE.md](../../../GUIDE.md) for component integration
+2. Review performance metrics
+3. Optimize existing images
+
+Remember: Optimized images = Better performance! 💪
